@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQs – Tecnix Business Consult</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: small;
+      background-color: #151f1b;
+      color: #3eb963;
+    }
+    .navbar {
+      background-color: #3eb963;
+    }
+    .navbar-nav .nav-link, .navbar-brand {
+      color: white !important;
+    }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+    background-color: #2e8c4e;
+    color: #fff !important;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+    .faq-hero {
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('./images/faq-hero.jpg') center center/cover no-repeat;
+      color: white;
+      padding: 80px 0 60px 0;
+      text-align: center;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .faq-section {
+      background-color: #151f1b;
+      color: #3eb963;
+      padding: 60px 0;
+    }
+    .accordion-item {
+      background-color: #23272b;
+      border: 1px solid #3eb963;
+      color: #3eb963;
+    }
+    .accordion-button {
+      background-color: #23272b;
+      color: #3eb963;
+      font-weight: bold;
+    }
+    .accordion-button:not(.collapsed) {
+      background-color: #3eb963;
+      color: #fff;
+    }
+    .accordion-body {
+      background-color: #23272b;
+      color: #d4f5e9;
+    }
+    footer {
+      background-color: rgb(92, 91, 91);
+      color: white;
+      padding: 20px 5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+  <a class="navbar-brand" href="index.html">Tecnix Business Consult</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
+      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+      <li class="nav-item"><a class="nav-link active" href="faq.html">FAQ</a></li>
+    </ul>
+  </div>
+</nav>
+<nav class="nav navbar-expand-lg navbar-dark px-4" style="background-color: #5abd78;">
+  <div class="w-100 text-center" style="color: white; padding: 10px 0; margin: 0;">
+    <p style="font-size: small; margin: 0;">
+      <i class="fa-solid fa-envelope" style="color: darkred;"></i> &nbsp;tecnixug@gmail.com &nbsp;| &nbsp;
+      <i class="fa-solid fa-phone" style="color: lightgreen;"></i>&nbsp;+256773109280 &nbsp;|&nbsp; 
+      <i class="fa-brands fa-instagram" style="color: maroon;"></i> &nbsp;tecnixug &nbsp;| 
+      <i class="fa-brands fa-facebook" style="color: darkblue;"></i>&nbsp;tecnixug |&nbsp; 
+      <i class="fa-brands fa-linkedin" style="color: darkblue;"></i>&nbsp;TecnixUganda&nbsp;
+    </p>
+  </div>
+</nav>
+
+<!-- FAQ Hero -->
+<section class="faq-hero">
+  <h1>Frequently Asked Questions</h1>
+  <p class="lead" style="color: #d4f5e9;">Find answers to common questions about our services and company.</p>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faqOneHeading">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="false" aria-controls="faqOne">
+                What services does Tecnix Business Consult offer?
+              </button>
+            </h2>
+            <div id="faqOne" class="accordion-collapse collapse" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                We offer business consultancy, ICT solutions, web design, digital marketing, software development, business mails, bulk SMS, and ICT support & maintenance.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faqTwoHeading">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                How can I request a quote or consultation?
+              </button>
+            </h2>
+            <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                You can fill out the contact form on our <a href="contact.html" style="color: #3eb963; text-decoration: underline;">Contact Us</a> page or email us directly at tecnixug@gmail.com.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faqThreeHeading">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+                Where is your office located?
+              </button>
+            </h2>
+            <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqThreeHeading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Our office is at Novia House, Sir Apollo Kaggwa Road, Kampala, Uganda.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faqFourHeading">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">
+                Do you provide ongoing support after project delivery?
+              </button>
+            </h2>
+            <div id="faqFour" class="accordion-collapse collapse" aria-labelledby="faqFourHeading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes, we offer ongoing ICT support and maintenance services to ensure your business runs smoothly.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item mb-3">
+            <h2 class="accordion-header" id="faqFiveHeading">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFive" aria-expanded="false" aria-controls="faqFive">
+                How soon can I expect a response after contacting you?
+              </button>
+            </h2>
+            <div id="faqFive" class="accordion-collapse collapse" aria-labelledby="faqFiveHeading" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                We strive to respond to all inquiries within 24 hours during business days.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <p style="color: #fff;">Still have questions? <a href="contact.html" style="color: #3eb963; text-decoration: underline;">Contact us</a> and we’ll be happy to help!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="text-left" style="background-color: #151f1b; color: #3eb963; padding: 20px;">
+  <div class="container row g-6">
+    <div class="container col-md-4">
+      <h4 style="font-weight: bold; color: whitesmoke;">Business Consultancy Services...</h4>
+      <ul>
+        <li>Tax Returns filing</li>
+        <li>TIN Registration</li>
+        <li>KCCA Trading licensing</li>
+        <li>Digital Marketing and Social Media</li>
+        <li>Company Registrations</li>
+        <li>Business Branding</li>
+        <li>Motor Vehicle Transfers</li>
+        <li>Board Resolutions</li>
+        <li>General Tax Advisory</li>
+        <li>Company Data Updates</li>
+        <li>Company profiles and portfolio</li>
+        <li>Human Resource Services</li>
+      </ul>
+    </div>
+    <div class="container col-md-4">
+    <h4 style="font-weight: bold; color: whitesmoke;">ICT Services...</h4>
+      <ul>
+        <li>ICT innovation and incubation Hub</li>
+        <li>Software Development</li>
+        <li>.ug, .co.ug, .ac.ug Domain Registration</li>
+        <li>Custom Email Addresses</li>
+        <li>Web Design Services Kampala</li>
+        <li>WordPress Website Designers & Developers</li>
+        <li>PPC or pay-per-click Services</li>
+        <li>Search engine marketing (SEM) Services</li>
+        <li>Google Ads Marketing Campaigns</li>
+        <li>YouTube Ads Marketing Campaigns</li>
+        <li>Website Backups and Security Protection Services</li>
+        <li>Site Recovery, Virus Repair & Malware Damage Cleanup</li>
+        <li>Computer Hardware and software provisioning</li>
+        <li>Networking and CCTV installation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+  <div class="container">
+    <div class="mb-2">
+      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p style="font-size: 0.95em;">&copy; 2025 Tecnix Business Consult. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
