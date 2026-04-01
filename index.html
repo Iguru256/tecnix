@@ -3,393 +3,1495 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TBC – Empowering Ugandan Businesses</title>
+  <title>Tecnix – Built for Uganda. Built to Scale.</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-size: small;
-      background-color: #151f1b;
-      color: #3eb963;
-    }
-    .navbar {
-      background-color: #3eb963;
-    }
-    .navbar-nav .nav-link, .navbar-brand {
-      color: white !important;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1f2d;
+      --navy2:  #111c27;
+      --navy3:  #162636;
+      --green:  #00c853;
+      --green2: #00e676;
+      --gold:   #c8a84b;
+      --gold2:  #e8c96a;
+      --cream:  #f5f0e8;
+      --muted:  #7a8c99;
+      --border: rgba(0,200,83,0.15);
+      --gold-border: rgba(200,168,75,0.25);
     }
 
-    .navbar-nav .nav-link.active, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
-    background-color: #2e8c4e;
-    color: #fff !important;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('./hero.jpg') center center/cover no-repeat;
-      color: white;
-      padding: 110px 0 90px 0;
-      text-align: center;
-      min-height: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ── NAV ── */
+    nav.topnav {
+      position: sticky;
+      top: 0;
+      background: rgba(13,31,45,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 48px;
+      width: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .nav-brand-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-brand-text span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(245,240,232,0.65);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--cream);
+      background: rgba(0,200,83,0.1);
+    }
+
+    .nav-cta {
+      background: var(--green) !important;
+      color: var(--navy) !important;
+      font-weight: 700 !important;
+      border-radius: 6px !important;
+      padding: 9px 20px !important;
+    }
+
+    .nav-cta:hover { background: var(--green2) !important; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 40px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 60% 10%, rgba(0,200,83,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 90% 80%, rgba(200,168,75,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 10% 90%, rgba(0,200,83,0.05) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,83,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,83,0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--gold-border);
+      background: rgba(200,168,75,0.07);
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+
     .hero h1 {
-      font-weight: bold;
-      font-size: 2.5rem;
-      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(44px, 6.5vw, 88px);
+      line-height: 1.0;
+      margin-bottom: 10px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--green); }
+
+    .hero-sub {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: var(--muted);
+      margin-bottom: 32px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-problem {
+      background: rgba(0,200,83,0.05);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      padding: 20px 28px;
+      max-width: 620px;
+      margin-bottom: 48px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.7);
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-problem strong { color: var(--cream); }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--navy);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.2s;
+      border-radius: 4px;
+    }
+
+    .btn-primary:hover { background: var(--green2); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: 1px solid rgba(245,240,232,0.2);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, transform 0.2s;
+      border-radius: 4px;
+    }
+
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .stat-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--green);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTION COMMON ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    h2.section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(30px, 4.5vw, 52px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    h2.section-title em { font-style: italic; color: var(--green); }
+
+    .section-desc {
+      font-size: 16px;
+      color: rgba(245,240,232,0.65);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 40px;
+    }
+
+    /* ── PLATFORM SECTION ── */
+    .platform-section {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      margin-bottom: 56px;
+    }
+
+    .product-card {
+      background: var(--navy2);
+      padding: 40px 32px;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover { background: var(--navy3); }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .product-card.gold-accent::before { background: var(--gold); }
+
+    .product-icon {
+      width: 52px; height: 52px;
+      background: rgba(0,200,83,0.1);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .product-card.gold-accent .product-icon {
+      background: rgba(200,168,75,0.1);
+      border-color: var(--gold-border);
+    }
+
+    .product-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(0,200,83,0.1);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .product-card.gold-accent .product-tag {
+      color: var(--gold);
+      background: rgba(200,168,75,0.1);
+      border-color: var(--gold-border);
+    }
+
+    .product-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
       margin-bottom: 10px;
     }
-    .hero .lead {
-      color: #3eb963;
-      font-size: 1.3rem;
-      font-weight: 500;
+
+    .product-card p {
+      font-size: 14px;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.65;
+      margin-bottom: 24px;
     }
-    .service-card {
-      background: #23272b;
-      border: 1px solid #3eb963;
-      color: #3eb963;
-      border-radius: 10px;
-      transition: transform 0.2s;
-      min-height: 180px;
-      max-width: 100%;
-    }
-    .service-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 8px 24px rgba(62,185,99,0.15);
-    }
-    .service-card h5 {
-      color: #3eb963;
-      font-weight: bold;
-    }
-    .service-card .card-text {
-      color: #d4f5e9;
-    }
-    .btn-custom {
-      background-color: #3eb963;
-      color: #fff;
-      border-radius: 5px;
-      border: none;
-      font-weight: 500;
-    }
-    .btn-custom:hover {
-      background-color: #2e8c4e;
-      color: #fff;
-    }
-    .about-section {
-      background-color: #151f1b;
-      color: #3eb963;
-      padding: 60px 0;
-    }
-    .about-section h2 {
-      color: #fff;
-      font-weight: bold;
-    }
-    .about-section p {
-      color: #d4f5e9;
-    }
-    .about-section ul {
-      color: #3eb963;
-    }
-    .about-img {
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 15px;
-    }
-    .partners-section {
-      background-color: #23272b;
-      padding: 40px 0 30px 0;
-    }
-    .partners-section h2 {
-      color: #fff;
-      margin-bottom: 25px;
-    }
-    .partner-card {
-      background: #151f1b;
-      border: 1px solid #3eb963;
-      border-radius: 8px;
-      padding: 10px 0 5px 0;
-      min-height: 90px;
+
+    .product-features {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      gap: 8px;
     }
-    .partner-card img {
-      max-width: 60px;
-      max-height: 40px;
+
+    .product-features li {
+      font-size: 13px;
+      color: rgba(245,240,232,0.75);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .product-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .product-card.gold-accent .product-features li::before { color: var(--gold); }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .pricing-card {
+      background: var(--navy2);
+      padding: 44px 36px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      background: var(--navy3);
+      border-top: 3px solid var(--gold);
+    }
+
+    .tier-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(200,168,75,0.1);
+      border: 1px solid var(--gold-border);
+      padding: 3px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .tier-badge.green {
+      color: var(--green);
+      background: rgba(0,200,83,0.08);
+      border-color: var(--border);
+    }
+
+    .tier-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
       margin-bottom: 6px;
     }
-    .partner-card .partner-name {
-      color: #3eb963;
-      font-size: 0.95em;
-      text-align: center;
+
+    .tier-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
     }
-    .quick-links-section {
-      background-color: #23272b;
-      color: #3eb963;
-      padding: 40px 0 30px 0;
+
+    .price-amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 38px;
+      font-weight: 500;
+      color: var(--cream);
     }
-    .quick-links-section h3 {
-      color: #fff;
-      margin-bottom: 25px;
+
+    .price-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--muted);
     }
-    .quick-links-section ul {
+
+    .price-usd {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 6px 0 28px;
+    }
+
+    .features-list {
       list-style: none;
-      padding: 0;
-      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
     }
-    .quick-links-section li {
+
+    .features-list li {
+      font-size: 14px;
+      color: rgba(245,240,232,0.75);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .cross { color: #4a5568; flex-shrink: 0; }
+
+    .btn-tier {
+      width: 100%;
+      padding: 14px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-tier.primary { background: var(--gold); color: var(--navy); }
+    .btn-tier.primary:hover { background: var(--gold2); }
+    .btn-tier.outline { background: transparent; color: var(--green); border: 1px solid var(--border); }
+    .btn-tier.outline:hover { background: rgba(0,200,83,0.08); }
+    .btn-tier.dark { background: rgba(245,240,232,0.08); color: var(--cream); border: 1px solid rgba(245,240,232,0.15); }
+    .btn-tier.dark:hover { background: rgba(245,240,232,0.12); }
+
+    /* ── OBJECTIONS ── */
+    .objections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      margin-top: 2px;
+    }
+
+    .objection {
+      background: var(--navy2);
+      padding: 28px 32px;
+    }
+
+    .objection .q {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
       margin-bottom: 10px;
-      font-size: 1.05em;
     }
-    .quick-links-section i {
-      color: #3eb963;
-      margin-right: 8px;
+
+    .objection .a {
+      font-size: 14px;
+      color: rgba(245,240,232,0.7);
+      line-height: 1.65;
     }
+
+    .objection .a strong { color: var(--cream); }
+
+    /* ── GUARANTEE ── */
+    .guarantee-section {
+      padding: 80px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .guarantee-box {
+      background: var(--navy2);
+      border: 1px solid var(--gold-border);
+      border-left: 4px solid var(--gold);
+      padding: 48px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .guarantee-shield { font-size: 52px; flex-shrink: 0; }
+
+    .guarantee-box h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    .guarantee-box p {
+      font-size: 15px;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .guarantee-box p strong { color: var(--cream); }
+
+    .risk-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .risk-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      background: rgba(200,168,75,0.08);
+      border: 1px solid var(--gold-border);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    /* ── COMPARISON ── */
+    .comparison-section {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    .vs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .vs-table th {
+      background: var(--navy2);
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .vs-table th.us {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    .vs-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(0,200,83,0.06);
+      color: rgba(245,240,232,0.7);
+      vertical-align: middle;
+    }
+
+    .vs-table tr:hover td { background: rgba(0,200,83,0.02); }
+    .vs-table td.feature-name { font-weight: 600; color: var(--cream); font-size: 13px; }
+    .vs-table td.win { color: rgba(245,240,232,0.85); }
+    .vs-table td.lose { color: #4a5568; }
+
+    .tag-win {
+      display: inline-block;
+      background: rgba(0,200,83,0.12);
+      color: var(--green);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .tag-lose {
+      display: inline-block;
+      background: rgba(255,255,255,0.04);
+      color: #4a5568;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    /* ── BRIDGE / SERVICES ── */
+    .bridge-section {
+      padding: 100px 40px;
+      background: var(--navy2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bridge-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .bridge-services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      margin-top: 40px;
+    }
+
+    .bridge-service-item {
+      background: var(--navy);
+      padding: 24px;
+    }
+
+    .bridge-service-item i {
+      color: var(--green);
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .bridge-service-item h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .bridge-service-item p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .bridge-visual {
+      position: relative;
+    }
+
+    .bridge-img {
+      width: 100%;
+      border-radius: 4px;
+      height: 400px;
+      object-fit: cover;
+      filter: brightness(0.75) saturate(0.8);
+      border: 1px solid var(--border);
+    }
+
+    .bridge-img-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(13,31,45,0.9));
+      padding: 28px 24px 24px;
+    }
+
+    .bridge-img-overlay p {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--cream);
+      line-height: 1.4;
+    }
+
+    /* ── PARTNERS ── */
+    .partners-section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .partner-card {
+      background: var(--navy2);
+      padding: 24px 16px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .partner-card:hover { background: var(--navy3); }
+
+    .partner-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(245,240,232,0.5);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      padding: 120px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,200,83,0.07) 0%, transparent 70%);
+    }
+
+    .final-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .final-cta h2 em { font-style: italic; color: var(--green); }
+
+    .final-cta p {
+      font-size: 17px;
+      color: rgba(245,240,232,0.6);
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
     footer {
-      background-color: rgb(92, 91, 91);
-      color: white;
-      padding: 20px 5px;
+      background: var(--navy2);
+      border-top: 1px solid var(--border);
+      padding: 60px 40px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand-text {
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .footer-brand-text span { color: var(--green); }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 280px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 36px; height: 36px;
+      background: rgba(0,200,83,0.08);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .footer-social a:hover { background: rgba(0,200,83,0.15); transform: translateY(-2px); }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 14px;
+      color: rgba(245,240,232,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--green); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-bottom .compliance {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-bottom .compliance span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav.topnav { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; gap: 4px; }
+      .nav-links.open { display: flex; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy2); padding: 16px 20px; border-bottom: 1px solid var(--border); }
+      .nav-toggle { display: block; }
+      .hero { padding: 60px 20px; min-height: auto; }
+      .platform-section, .pricing-section, .comparison-section, .partners-section { padding: 60px 20px; }
+      .bridge-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .guarantee-box { flex-direction: column; padding: 32px; }
+      .bridge-section { padding: 60px 20px; }
+      .final-cta { padding: 80px 20px; }
+      footer { padding: 48px 20px 24px; }
+      .hero-stats { gap: 28px; }
+      .divider { margin: 0 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark px-4">
-  <a class="navbar-brand d-flex align-items-center" href="index.html">
-    <img src="./ChatGPT Image Aug 2, 2025, 08_56_40 PM.png" alt="Tecnix Logo" style="height:100px; width:100px; margin-right:10px; border-radius:6px;">
+<!-- ── NAVIGATION ── -->
+<nav class="topnav">
+  <a class="nav-brand" href="index.html">
+    
+    <span class="nav-brand-text">Tecnix<span>.</span></span>
   </a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-    <span class="navbar-toggler-icon"></span>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    <i class="fa-solid fa-bars"></i>
   </button>
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link active" href="index.html" style="font-weight: bolder;">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
-      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
-    </ul>
-  </div>
-</nav>
-<nav class="nav navbar-expand-lg navbar-dark px-4" style="background-color: #5abd78;">
-  <div class="w-100 text-center" style="color: white; padding: 10px 0; margin: 0;">
-    <p style="font-size: small; margin: 0;">
-      <i class="fa-solid fa-envelope" style="color: darkred;"></i> &nbsp;tecnixug@gmail.com &nbsp;| &nbsp;
-      <i class="fa-solid fa-phone" style="color: lightgreen;"></i>&nbsp;+256773109280 &nbsp;|&nbsp; 
-      <i class="fa-brands fa-instagram" style="color: maroon;"></i> &nbsp;tecnixug &nbsp;| 
-      <i class="fa-brands fa-facebook" style="color: darkblue;"></i>&nbsp;tecnixug |&nbsp; 
-      <i class="fa-brands fa-linkedin" style="color: darkblue;"></i>&nbsp;TecnixUganda&nbsp;
-    </p>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+  </ul>
 </nav>
 
-<!-- Hero Section -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="container">
-    <h1>Empowering Ugandan Businesses</h1>
-    <p class="lead">ICT-driven Business Solutions for Smart Growth</p>
-    <a href="services.html" class="btn btn-custom btn-lg mt-4"><i class="fa-solid fa-arrow-right"></i> Explore Our Services</a>
-  </div>
-</section>
-
-<!-- Services Preview -->
-<section class="py-5" >
-  <div class="container text-center" style="padding: 20px;">
-    <h2 class="mb-4" style="color: #fff;">Our Services</h2>
-    <div class="row g-3">
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-globe fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">Web Design</h5>
-            <p class="card-text mb-2">Custom websites, portals and systems that work for your business.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-bullhorn fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">Digital Marketing</h5>
-            <p class="card-text mb-2">Grow your online visibility with professional digital strategies.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-briefcase fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">Business Consultancy</h5>
-            <p class="card-text mb-2">URA returns, licensing, tax advisory, and general compliance.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
-      </div>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🇺🇬 &nbsp; Uganda's Business Software Platform</div>
+    <h1>Built for <em>Uganda.</em><br>Built to Scale.</h1>
+    <p class="hero-sub">Software that speaks your business language.</p>
+    <div class="hero-problem">
+      <strong>QuickBooks doesn't know URA. Odoo wasn't built for mobile money. Imported software costs in dollars and breaks on MTN data.</strong> Tecnix is the first integrated business platform built specifically for Uganda's real operating conditions — offline-first, UGX-native, and fully compliant.
     </div>
-    <div class="row g-3 mt-2">
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-code fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">Software Development</h5>
-            <p class="card-text mb-2">Custom web applications, ERPs, CRMs, and data analytic tools tailored for your business.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
+    <div class="hero-cta">
+      <a href="contact.html" class="btn-primary">Start Free Trial &nbsp; →</a>
+      <a href="#platform" class="btn-ghost">See the Platform</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">4</span>
+        <div class="stat-label">Branded Products</div>
       </div>
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-envelope fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">Business Mails & Bulk SMS</h5>
-            <p class="card-text mb-2">Professional mail services and bulk messaging solutions for your business.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
+      <div>
+        <span class="stat-num">30</span>
+        <div class="stat-label">Day Free Trial</div>
       </div>
-      <div class="col-md-4">
-        <div class="card service-card h-100 p-3">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <i class="fa-solid fa-headset fa-2x mb-3" style="color: #3eb963;"></i>
-            <h5 class="card-title mb-2">ICT Support & Maintenance</h5>
-            <p class="card-text mb-2">Reliable hardware, software, and ongoing support for your business needs.</p>
-            <a href="services.html" class="btn btn-custom btn-sm mt-2">Read More...</a>
-          </div>
-        </div>
+      <div>
+        <span class="stat-num">90</span>
+        <div class="stat-label">Day Guarantee</div>
+      </div>
+      <div>
+        <span class="stat-num">UGX</span>
+        <div class="stat-label">Always Local Pricing</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- About Us Preview -->
-<section class="about-section">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 mb-4 mb-md-0">
-        <img src="./support.jpg" alt="About Tecnix Business Consult" class="about-img">
+<div class="divider"></div>
+
+<!-- ── PLATFORM ── -->
+<section class="platform-section reveal" id="platform">
+  <div class="section-label">The TecnixOS Platform</div>
+  <h2 class="section-title">Four Products. <em>One Ecosystem.</em></h2>
+  <p class="section-desc">Each product works standalone or as part of the integrated TecnixOS suite. All modules share a single database, single login, and a single dashboard.</p>
+
+  <div class="products-grid">
+    <!-- Tecnix Ledger -->
+    <div class="product-card">
+      <div class="product-icon">📒</div>
+      <div class="product-tag">Tecnix Ledger</div>
+      <h3>Finance & Compliance</h3>
+      <p>UGX-native accounting with built-in URA eFiling, VAT automation, and MTN/Airtel Money reconciliation. No add-ons required.</p>
+      <ul class="product-features">
+        <li>URA eFiling & VAT auto-calculation</li>
+        <li>MTN MoMo & Airtel Money integration</li>
+        <li>UGX invoicing, receipts & statements</li>
+        <li>Bank reconciliation</li>
+        <li>Offline-first — syncs on reconnect</li>
+      </ul>
+    </div>
+    <!-- Tecnix Roster -->
+    <div class="product-card">
+      <div class="product-icon">👥</div>
+      <div class="product-tag">Tecnix Roster</div>
+      <h3>HR & Payroll</h3>
+      <p>Manage your team, run payroll in UGX, handle NSSF contributions, and track leave — all from one interface built for Ugandan labour law.</p>
+      <ul class="product-features">
+        <li>Payroll processing in UGX</li>
+        <li>NSSF & PAYE compliance</li>
+        <li>Leave, attendance & contracts</li>
+        <li>Employee self-service portal</li>
+        <li>Salary disbursement via Mobile Money</li>
+      </ul>
+    </div>
+    <!-- Tecnix Stock -->
+    <div class="product-card">
+      <div class="product-icon">📦</div>
+      <div class="product-tag">Tecnix Stock</div>
+      <h3>Inventory Management</h3>
+      <p>Real-time stock control across multiple branches, with low-stock alerts, supplier management, and barcode scanning — even offline.</p>
+      <ul class="product-features">
+        <li>Multi-location & multi-branch sync</li>
+        <li>Barcode & QR scanning</li>
+        <li>Purchase orders & supplier tracking</li>
+        <li>Low-stock and reorder alerts</li>
+        <li>Detailed analytics & reporting</li>
+      </ul>
+    </div>
+    <!-- Tecnix POS -->
+    <div class="product-card gold-accent">
+      <div class="product-icon">🖥️</div>
+      <div class="product-tag">Tecnix POS</div>
+      <h3>Point of Sale</h3>
+      <p>A fast, intuitive point-of-sale system designed for Ugandan retail, restaurants, and service businesses — tablet, desktop, or phone.</p>
+      <ul class="product-features">
+        <li>Touch-screen & keyboard modes</li>
+        <li>Mobile Money & cash payments</li>
+        <li>Integrated with Ledger & Stock</li>
+        <li>Works fully offline</li>
+        <li>End-of-day reports & Z-readings</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PRICING ── -->
+<section class="pricing-section reveal" id="pricing">
+  <div class="section-label">Transparent Pricing</div>
+  <h2 class="section-title">No Dollar Invoices. <em>No Surprises.</em></h2>
+  <p class="section-desc">Every plan is priced in UGX, payable via MTN MoMo, Airtel Money, or bank transfer. Cancel anytime.</p>
+
+  <div class="pricing-grid">
+    <!-- Starter -->
+    <div class="pricing-card">
+      <div class="tier-badge green">Starter</div>
+      <div class="tier-name">Starter</div>
+      <div class="tier-tagline">For small businesses & solo operators</div>
+      <div>
+        <span class="price-amount">UGX 149K</span>
+        <span class="price-period">/month</span>
       </div>
-      <div class="col-md-6">
-        <h2>About Us</h2>
-        <p>
-          <strong>Tecnix Business Consult</strong> is a Ugandan-based firm dedicated to empowering businesses through innovative ICT and business solutions. Our team combines expertise in technology, business consultancy, and digital marketing to help organizations grow, adapt, and thrive in a rapidly changing world.
+      <div class="price-usd">≈ $40 USD &nbsp;·&nbsp; Save 20% annually</div>
+      <ul class="features-list">
+        <li><span class="check">✓</span> One core module (Ledger, Roster, Stock, or POS)</li>
+        <li><span class="check">✓</span> MTN/Airtel Money integration</li>
+        <li><span class="check">✓</span> UGX-native invoicing & receipts</li>
+        <li><span class="check">✓</span> Offline mode with sync</li>
+        <li><span class="check">✓</span> WhatsApp support (business hours)</li>
+        <li><span class="check">✓</span> Up to 5 users</li>
+        <li><span class="cross">✗</span> URA eFiling integration</li>
+        <li><span class="cross">✗</span> API access</li>
+        <li><span class="cross">✗</span> Custom reports</li>
+      </ul>
+      <button class="btn-tier outline" onclick="window.location.href='contact.html'">Get Started Free →</button>
+    </div>
+
+    <!-- Growth -->
+    <div class="pricing-card featured">
+      <div class="tier-badge">⚡ Most Popular</div>
+      <div class="tier-name">Growth</div>
+      <div class="tier-tagline">For growing SMEs &amp; teams of 6–30 users</div>
+      <div>
+        <span class="price-amount">UGX 490K</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-usd">≈ $135 USD &nbsp;·&nbsp; Save 20% annually</div>
+      <ul class="features-list">
+        <li><span class="check">✓</span> All 4 modules (Ledger + Roster + Stock + POS)</li>
+        <li><span class="check">✓</span> MTN/Airtel Money + bank reconciliation</li>
+        <li><span class="check">✓</span> URA eFiling &amp; VAT automation</li>
+        <li><span class="check">✓</span> Offline-first, multi-location sync</li>
+        <li><span class="check">✓</span> Phone + WhatsApp priority support</li>
+        <li><span class="check">✓</span> Up to 30 users</li>
+        <li><span class="check">✓</span> Custom reports &amp; dashboards</li>
+        <li><span class="check">✓</span> Staff training (onsite Kampala)</li>
+        <li><span class="cross">✗</span> Dedicated account manager</li>
+      </ul>
+      <button class="btn-tier primary" onclick="window.location.href='contact.html'">Start 30-Day Trial →</button>
+    </div>
+
+    <!-- Command -->
+    <div class="pricing-card">
+      <div class="tier-badge">Command</div>
+      <div class="tier-name">Command</div>
+      <div class="tier-tagline">For institutions, SACCOs &amp; multi-branch operations</div>
+      <div>
+        <span class="price-amount">UGX 1.4M</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-usd">≈ $380 USD &nbsp;·&nbsp; Custom annual pricing available</div>
+      <ul class="features-list">
+        <li><span class="check">✓</span> Everything in Growth, plus:</li>
+        <li><span class="check">✓</span> Unlimited users &amp; branches</li>
+        <li><span class="check">✓</span> NITA-U &amp; NHIS integrations</li>
+        <li><span class="check">✓</span> Full API access for custom integrations</li>
+        <li><span class="check">✓</span> Dedicated account manager</li>
+        <li><span class="check">✓</span> SLA: 4-hour response, 99.5% uptime</li>
+        <li><span class="check">✓</span> On-site implementation (countrywide)</li>
+        <li><span class="check">✓</span> Private data environment on request</li>
+        <li><span class="check">✓</span> Quarterly business reviews</li>
+      </ul>
+      <button class="btn-tier dark" onclick="window.location.href='contact.html'">Book a Demo Call →</button>
+    </div>
+  </div>
+
+  <!-- Objection crushers -->
+  <div class="objections reveal">
+    <div class="objection">
+      <div class="q">❓ "Can we pay via Mobile Money?"</div>
+      <div class="a">Yes. <strong>MTN MoMo and Airtel Money accepted.</strong> Bank transfer also works. No dollar invoices — ever.</div>
+    </div>
+    <div class="objection">
+      <div class="q">❓ "What if our internet connection is unreliable?"</div>
+      <div class="a"><strong>TecnixOS is built offline-first.</strong> Your team works normally without internet. Data syncs automatically the moment connectivity returns.</div>
+    </div>
+    <div class="objection">
+      <div class="q">❓ "We already use QuickBooks."</div>
+      <div class="a">We migrate your data for free. <strong>Migration takes 5 business days,</strong> not months. You keep all your history.</div>
+    </div>
+    <div class="objection">
+      <div class="q">❓ "What about training our staff?"</div>
+      <div class="a">Growth and Command plans include <strong>onsite training in Kampala.</strong> Upcountry delivery available by arrangement.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── GUARANTEE ── -->
+<section class="guarantee-section reveal">
+  <div class="section-label">Risk Reversal</div>
+  <h2 class="section-title">We Take the Risk. <em>You Keep the Results.</em></h2>
+  <div class="guarantee-box">
+    <div class="guarantee-shield">🛡️</div>
+    <div>
+      <h3>The 90-Day "Works For Uganda" Guarantee</h3>
+      <p>Use TecnixOS for 90 days. If it does not save your team at least <strong>5 hours per week</strong> in administrative work, or if it does not handle your UGX operations, mobile money flows, and URA compliance better than your current setup — we refund every shilling. No questions asked. No legal notices. No chasing.</p>
+      <p style="font-size:13px; color:var(--muted);">We built this for this market. If we are wrong about that, you should not pay us.</p>
+      <div class="risk-items">
+        <span class="risk-item">✓ 90-Day Full Refund</span>
+        <span class="risk-item">✓ Free Data Migration</span>
+        <span class="risk-item">✓ No Setup Fees</span>
+        <span class="risk-item">✓ Cancel Anytime</span>
+        <span class="risk-item">✓ First Month Free</span>
+        <span class="risk-item">✓ Data Export Guaranteed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── COMPARISON ── -->
+<section class="comparison-section reveal">
+  <div style="max-width:1200px; margin:0 auto 48px;">
+    <div class="section-label">Why We Win</div>
+    <h2 class="section-title">How Tecnix Stacks Up Against <em>the Alternatives.</em></h2>
+  </div>
+  <table class="vs-table">
+    <thead>
+      <tr>
+        <th style="width:20%">Capability</th>
+        <th class="us">Tecnix ✦</th>
+        <th>QuickBooks / Sage</th>
+        <th>Odoo (self-hosted)</th>
+        <th>Local Developer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature-name">UGX &amp; Mobile Money</td>
+        <td class="win"><span class="tag-win">Native</span>MTN + Airtel built-in</td>
+        <td class="lose"><span class="tag-lose">Workaround</span>Add-ons required</td>
+        <td>Configurable, complex</td>
+        <td>Depends on developer</td>
+      </tr>
+      <tr>
+        <td class="feature-name">URA eFiling</td>
+        <td class="win"><span class="tag-win">Integrated</span>Auto-submit ready</td>
+        <td class="lose"><span class="tag-lose">Manual</span>Export &amp; upload</td>
+        <td class="lose"><span class="tag-lose">None</span>Build yourself</td>
+        <td>Custom build (costly)</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Offline Operation</td>
+        <td class="win"><span class="tag-win">Core Feature</span>Sync on reconnect</td>
+        <td class="lose"><span class="tag-lose">Cloud Only</span>Needs internet</td>
+        <td>Possible with extra setup</td>
+        <td>Possible, not standard</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Local Support (EAT)</td>
+        <td class="win"><span class="tag-win">Kampala Team</span>Same timezone</td>
+        <td class="lose"><span class="tag-lose">Global Queue</span>24–72hr response</td>
+        <td class="lose"><span class="tag-lose">Community Only</span>Forums</td>
+        <td>Freelancer availability varies</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Implementation Time</td>
+        <td class="win"><span class="tag-win">5 Days</span>Migration included</td>
+        <td class="lose">2–6 weeks, paid setup</td>
+        <td class="lose">3–6 months typical</td>
+        <td class="lose">6–18 months to build</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Data Stays in Uganda</td>
+        <td class="win"><span class="tag-win">Yes</span>Local Tier III DC</td>
+        <td class="lose"><span class="tag-lose">No</span>US/EU servers</td>
+        <td>Depends on hosting</td>
+        <td>Depends on setup</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Pricing in UGX</td>
+        <td class="win"><span class="tag-win">Always UGX</span>No FX risk</td>
+        <td class="lose"><span class="tag-lose">USD only</span>Rate fluctuations</td>
+        <td class="lose"><span class="tag-lose">EUR / USD</span></td>
+        <td>Negotiable</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Starting Cost</td>
+        <td class="win"><span class="tag-win">UGX 149K/mo</span></td>
+        <td class="lose">$30–$90/mo + add-ons</td>
+        <td class="lose">$0 + $5K+ implementation</td>
+        <td class="lose">$3K–$25K upfront</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── BRIDGE TO SERVICES ── -->
+<section class="bridge-section reveal">
+  <div class="bridge-inner">
+    <div class="bridge-grid">
+      <div>
+        <div class="section-label">Beyond Software</div>
+        <h2 class="section-title">We Don't Just Give You Tools. <em>We Run the Work Too.</em></h2>
+        <p style="font-size:15px; color:rgba(245,240,232,0.65); line-height:1.75; margin-bottom:32px;">
+          TecnixOS automates the routine. Our professional services team handles everything else — URA compliance, digital marketing, ICT infrastructure, and more. One company. Full coverage.
         </p>
-        <ul>
-          <li >Experienced professionals in ICT and business advisory</li>
-          <li>Client-focused, ethical, and results-driven approach</li>
-          <li>Customized solutions for SMEs and large enterprises</li>
-          <li>Trusted partner for digital transformation</li>
-        </ul>
-        <a href="about.html" class="btn btn-custom mt-3">Learn More</a>
-      </div>
-    </div>
-  </div>
-</section>
+        <a href="services.html" class="btn-primary">Explore All Services &nbsp; →</a>
 
-<!-- Our Partners Section -->
-<section class="partners-section">
-  <div class="container">
-    <h2 class="text-center mb-4">Our Partners</h2>
-    <div class="row g-3 justify-content-center">
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+1" alt="Partner 1"> -->
-          <div class="partner-name">Mugiri Motors</div>
+        <div class="bridge-services">
+          <div class="bridge-service-item">
+            <i class="fa-solid fa-briefcase"></i>
+            <h5>Business Consultancy</h5>
+            <p>URA returns, TIN registration, KCCA licensing, company setup</p>
+          </div>
+          <div class="bridge-service-item">
+            <i class="fa-solid fa-bullhorn"></i>
+            <h5>Digital Marketing</h5>
+            <p>Social media, Google Ads, SEO, content & brand strategy</p>
+          </div>
+          <div class="bridge-service-item">
+            <i class="fa-solid fa-network-wired"></i>
+            <h5>ICT Infrastructure</h5>
+            <p>Networking, CCTV, hardware provisioning & web design</p>
+          </div>
+          <div class="bridge-service-item">
+            <i class="fa-solid fa-headset"></i>
+            <h5>Ongoing Support</h5>
+            <p>Onsite and remote maintenance, data backup & recovery</p>
+          </div>
         </div>
       </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+2" alt="Partner 2"> -->
-          <div class="partner-name">RSNM</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+3" alt="Partner 3"> -->
-          <div class="partner-name">Stratton Cleaning</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+4" alt="Partner 4"> -->
-          <div class="partner-name">Pamoja Tours</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+5" alt="Partner 5"> -->
-          <div class="partner-name">CLIP South Sudan</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+6" alt="Partner 6"> -->
-          <div class="partner-name">Safety Watch Initiatives</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+7" alt="Partner 7"> -->
-          <div class="partner-name">Tales Lounge</div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-3 col-md-2">
-        <div class="partner-card">
-          <!-- <img src="https://via.placeholder.com/60x40?text=Logo+8" alt="Partner 8"> -->
-          <div class="partner-name">Jophi Suites</div>
+      <div class="bridge-visual">
+        <img src="./support.jpg" alt="Tecnix team at work" class="bridge-img">
+        <div class="bridge-img-overlay">
+          <p>"Software builds the engine.<br>Our team keeps it running."</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Quick Links Section -->
-<section class="quick-links-section">
-  <div class="container">
-    <h3 class="text-center">Quick Links</h3>
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <ul>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="services.html" style="color: #3eb963;">Our Services</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="about.html" style="color: #3eb963;">About Us</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="contact.html" style="color: #3eb963;">Contact Us</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="faq.html" style="color: #3eb963;">FAQs</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <ul>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="mailto:tecnixug@gmail.com" style="color: #3eb963;">Email Us</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="tel:+256773109280" style="color: #3eb963;">Call Us</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="#" style="color: #3eb963;">Facebook</a></li>
-          <li><i class="fa-solid fa-arrow-right"></i> <a href="#" style="color: #3eb963;">LinkedIn</a></li>
-        </ul>
-      </div>
-    </div>
+<div class="divider"></div>
+
+<!-- ── PARTNERS ── -->
+<section class="partners-section reveal">
+  <div class="section-label">Trusted By</div>
+  <h2 class="section-title" style="margin-bottom:16px;">Our <em>Partners &amp; Clients</em></h2>
+  <p class="section-desc">Ugandan businesses across sectors trust Tecnix to power their operations.</p>
+  <div class="partners-grid">
+    <div class="partner-card"><div class="partner-name">Mugiri Motors</div></div>
+    <div class="partner-card"><div class="partner-name">RSNM</div></div>
+    <div class="partner-card"><div class="partner-name">Stratton Cleaning</div></div>
+    <div class="partner-card"><div class="partner-name">Pamoja Tours</div></div>
+    <div class="partner-card"><div class="partner-name">CLIP South Sudan</div></div>
+    <div class="partner-card"><div class="partner-name">Safety Watch Initiatives</div></div>
+    <div class="partner-card"><div class="partner-name">Tales Lounge</div></div>
+    <div class="partner-card"><div class="partner-name">Jophi Suites</div></div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="text-center">
-  <div class="container">
-    <div class="mb-2">
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-linkedin"></i></a>
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-instagram"></i></a>
+<div class="divider"></div>
+
+<!-- ── FINAL CTA ── -->
+<section class="final-cta reveal">
+  <div class="final-cta-bg"></div>
+  <h2>Stop Adapting to Tools<br>Built for <em>Someone Else.</em></h2>
+  <p>Start your 30-day free trial today. No credit card. No dollar invoice. No surprises.</p>
+  <div class="hero-cta" style="justify-content:center;">
+    <a href="contact.html" class="btn-primary">Start Free Trial — UGX 0 &nbsp;→</a>
+    <a href="contact.html" class="btn-ghost">Book a 20-Min Demo</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-text">Tecnix<span>.</span></div>
+        <p class="footer-tagline">Uganda's integrated business software platform. Built offline-first, priced in UGX, and backed by a Kampala team that answers the phone.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:tecnixug@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#platform">Tecnix Ledger</a></li>
+          <li><a href="#platform">Tecnix Roster</a></li>
+          <li><a href="#platform">Tecnix Stock</a></li>
+          <li><a href="#platform">Tecnix POS</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:tecnixug@gmail.com">tecnixug@gmail.com</a></li>
+          <li><a href="tel:+256773109280">+256 773 109 280</a></li>
+          <li><a href="#">Novia House, Sir Apollo Kaggwa Rd, Kampala</a></li>
+        </ul>
+      </div>
     </div>
-    <p style="font-size: 0.95em;">&copy; 2025 Tecnix Business Consult. All rights reserved.</p>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Tecnix Business Consult Ltd. All rights reserved.</p>
+      <div class="compliance">
+        <span>PDPA 2019 Compliant</span>
+        <span>URSB Registered</span>
+        <span>Data Hosted in Uganda</span>
+      </div>
+    </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
-
 </html>
