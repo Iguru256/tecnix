@@ -3,236 +3,467 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQs – Tecnix Business Consult</title>
+  <title>FAQ – Tecnix Business Consult</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      font-size: small;
-      background-color: #151f1b;
-      color: #3eb963;
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --navy:#0d1f2d; --navy2:#111c27; --navy3:#162636;
+      --green:#00c853; --green2:#00e676;
+      --gold:#c8a84b; --gold2:#e8c96a;
+      --cream:#f5f0e8; --muted:#7a8c99;
+      --border:rgba(0,200,83,0.15); --gold-border:rgba(200,168,75,0.25);
     }
-    .navbar {
-      background-color: #3eb963;
+    html { scroll-behavior:smooth; }
+    body { background:var(--navy); color:var(--cream); font-family:'Syne',sans-serif; font-size:16px; line-height:1.6; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:1000; }
+
+    nav.topnav { position:sticky; top:0; background:rgba(13,31,45,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); z-index:200; padding:0 40px; display:flex; align-items:center; justify-content:space-between; height:72px; }
+    .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-brand img { height:48px; width:48px; border-radius:8px; object-fit:cover; }
+    .nav-brand-text { font-weight:800; font-size:20px; color:var(--cream); letter-spacing:-0.02em; }
+    .nav-brand-text span { color:var(--green); }
+    .nav-links { display:flex; align-items:center; gap:6px; list-style:none; }
+    .nav-links a { color:rgba(245,240,232,0.65); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:0.04em; padding:8px 14px; border-radius:6px; transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--cream); background:rgba(0,200,83,0.1); }
+    .nav-cta { background:var(--green)!important; color:var(--navy)!important; font-weight:700!important; border-radius:6px!important; padding:9px 20px!important; }
+    .nav-cta:hover { background:var(--green2)!important; }
+    .nav-toggle { display:none; background:none; border:1px solid var(--border); color:var(--cream); padding:8px 12px; border-radius:6px; cursor:pointer; font-size:18px; }
+
+    /* PAGE HERO */
+    .page-hero { padding:100px 40px 80px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+    .page-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 80% 50%, rgba(0,200,83,0.06) 0%, transparent 70%); }
+    .page-hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(0,200,83,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,83,0.03) 1px,transparent 1px); background-size:64px 64px; }
+    .page-hero-inner { position:relative; max-width:700px; }
+    .page-hero-badge { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--gold-border); background:rgba(200,168,75,0.07); color:var(--gold); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding:7px 16px; border-radius:2px; margin-bottom:24px; }
+    .page-hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(40px,6vw,68px); line-height:1.0; margin-bottom:16px; }
+    .page-hero h1 em { font-style:italic; color:var(--green); }
+    .page-hero p { font-size:17px; color:rgba(245,240,232,0.65); max-width:520px; line-height:1.75; }
+
+    .section-label { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+    .section-label::after { content:''; flex:1; height:1px; background:var(--border); max-width:60px; }
+    h2.section-title { font-family:'DM Serif Display',serif; font-size:clamp(26px,3.5vw,40px); line-height:1.1; margin-bottom:40px; }
+    h2.section-title em { font-style:italic; color:var(--green); }
+    .divider { height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:0 40px; }
+
+    /* FAQ SECTION */
+    .faq-section { padding:100px 40px; max-width:1100px; margin:0 auto; }
+    .faq-layout { display:grid; grid-template-columns:1fr 2fr; gap:64px; }
+    .faq-nav { position:sticky; top:88px; align-self:start; }
+    .faq-nav h4 { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+    .faq-nav-links { list-style:none; display:flex; flex-direction:column; gap:4px; }
+    .faq-nav-links a { display:block; font-size:14px; color:rgba(245,240,232,0.55); text-decoration:none; padding:8px 14px; border-left:2px solid transparent; transition:all 0.2s; }
+    .faq-nav-links a:hover, .faq-nav-links a.active { color:var(--green); border-left-color:var(--green); background:rgba(0,200,83,0.05); }
+
+    /* ACCORDION */
+    .faq-group { margin-bottom:48px; }
+    .faq-group-title { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+    .faq-group-title::after { content:''; flex:1; height:1px; background:var(--gold-border); }
+
+    .faq-item { background:var(--navy2); border:1px solid var(--border); margin-bottom:2px; overflow:hidden; }
+    .faq-q { display:flex; justify-content:space-between; align-items:center; padding:22px 28px; cursor:pointer; gap:16px; transition:background 0.2s; }
+    .faq-q:hover { background:var(--navy3); }
+    .faq-q h4 { font-size:15px; font-weight:600; color:var(--cream); line-height:1.4; }
+    .faq-q .faq-icon { color:var(--green); font-size:14px; flex-shrink:0; transition:transform 0.3s; }
+    .faq-item.open .faq-icon { transform:rotate(45deg); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height 0.35s ease, padding 0.2s; padding:0 28px; }
+    .faq-item.open .faq-a { max-height:600px; padding:0 28px 24px; }
+    .faq-a p { font-size:14px; color:rgba(245,240,232,0.7); line-height:1.8; }
+    .faq-a p + p { margin-top:12px; }
+    .faq-a strong { color:var(--cream); }
+    .faq-a a { color:var(--green); text-decoration:none; }
+    .faq-a a:hover { text-decoration:underline; }
+
+    /* STILL HAVE QUESTIONS */
+    .faq-contact { background:var(--navy2); border:1px solid var(--gold-border); border-left:4px solid var(--gold); padding:40px 44px; margin-top:48px; display:flex; justify-content:space-between; align-items:center; gap:32px; flex-wrap:wrap; }
+    .faq-contact h3 { font-family:'DM Serif Display',serif; font-size:26px; margin-bottom:8px; }
+    .faq-contact h3 em { font-style:italic; color:var(--gold); }
+    .faq-contact p { font-size:14px; color:rgba(245,240,232,0.65); line-height:1.65; }
+    .btn-primary { background:var(--green); color:var(--navy); font-family:'Syne',sans-serif; font-weight:700; font-size:14px; letter-spacing:0.05em; text-transform:uppercase; padding:16px 36px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:background 0.2s,transform 0.2s; border-radius:4px; white-space:nowrap; }
+    .btn-primary:hover { background:var(--green2); transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer { background:var(--navy2); border-top:1px solid var(--border); padding:60px 40px 32px; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+    .footer-brand-text { font-weight:800; font-size:22px; color:var(--cream); margin-bottom:12px; }
+    .footer-brand-text span { color:var(--green); }
+    .footer-tagline { font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:24px; max-width:280px; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a { width:36px; height:36px; background:rgba(0,200,83,0.08); border:1px solid var(--border); border-radius:4px; display:flex; align-items:center; justify-content:center; color:var(--green); font-size:14px; text-decoration:none; transition:background 0.2s,transform 0.2s; }
+    .footer-social a:hover { background:rgba(0,200,83,0.15); transform:translateY(-2px); }
+    .footer-col h5 { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:10px; }
+    .footer-col ul li a { font-size:14px; color:rgba(245,240,232,0.6); text-decoration:none; transition:color 0.2s; }
+    .footer-col ul li a:hover { color:var(--green); }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:28px; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:12px; color:var(--muted); }
+    .footer-bottom .compliance { display:flex; gap:16px; }
+    .footer-bottom .compliance span { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:3px 10px; border-radius:2px; }
+
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media (max-width:900px) { .faq-layout { grid-template-columns:1fr; } .faq-nav { position:static; margin-bottom:24px; } }
+    @media (max-width:768px) {
+      nav.topnav { padding:0 20px; }
+      .nav-links { display:none; flex-direction:column; gap:4px; }
+      .nav-links.open { display:flex; position:absolute; top:72px; left:0; right:0; background:var(--navy2); padding:16px 20px; border-bottom:1px solid var(--border); }
+      .nav-toggle { display:block; }
+      .page-hero { padding:60px 20px 50px; }
+      .faq-section { padding:60px 20px; }
+      .faq-contact { padding:28px; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+      .divider { margin:0 20px; }
     }
-    .navbar-nav .nav-link, .navbar-brand {
-      color: white !important;
-    }
-        .navbar-nav .nav-link.active, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
-    background-color: #2e8c4e;
-    color: #fff !important;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-    .faq-hero {
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('./images/faq-hero.jpg') center center/cover no-repeat;
-      color: white;
-      padding: 80px 0 60px 0;
-      text-align: center;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .faq-section {
-      background-color: #151f1b;
-      color: #3eb963;
-      padding: 60px 0;
-    }
-    .accordion-item {
-      background-color: #23272b;
-      border: 1px solid #3eb963;
-      color: #3eb963;
-    }
-    .accordion-button {
-      background-color: #23272b;
-      color: #3eb963;
-      font-weight: bold;
-    }
-    .accordion-button:not(.collapsed) {
-      background-color: #3eb963;
-      color: #fff;
-    }
-    .accordion-body {
-      background-color: #23272b;
-      color: #d4f5e9;
-    }
-    footer {
-      background-color: rgb(92, 91, 91);
-      color: white;
-      padding: 20px 5px;
-    }
+    @media (max-width:480px) { .footer-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark px-4">
-  <a class="navbar-brand d-flex align-items-center" href="index.html">
-    <img src="./ChatGPT Image Aug 2, 2025, 08_56_40 PM.png" alt="Tecnix Logo" style="height:100px; width:100px; margin-right:10px; border-radius:6px;">
+<!-- NAV -->
+<nav class="topnav">
+  <a class="nav-brand" href="index.html">
+    <span class="nav-brand-text">Tecnix<span>.</span></span>
   </a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-    <span class="navbar-toggler-icon"></span>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    <i class="fa-solid fa-bars"></i>
   </button>
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
-      <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
-      <li class="nav-item"><a class="nav-link active" href="faq.html">FAQ</a></li>
-    </ul>
-  </div>
-</nav>
-<nav class="nav navbar-expand-lg navbar-dark px-4" style="background-color: #5abd78;">
-  <div class="w-100 text-center" style="color: white; padding: 10px 0; margin: 0;">
-    <p style="font-size: small; margin: 0;">
-      <i class="fa-solid fa-envelope" style="color: darkred;"></i> &nbsp;tecnixug@gmail.com &nbsp;| &nbsp;
-      <i class="fa-solid fa-phone" style="color: lightgreen;"></i>&nbsp;+256773109280 &nbsp;|&nbsp; 
-      <i class="fa-brands fa-instagram" style="color: maroon;"></i> &nbsp;tecnixug &nbsp;| 
-      <i class="fa-brands fa-facebook" style="color: darkblue;"></i>&nbsp;tecnixug |&nbsp; 
-      <i class="fa-brands fa-linkedin" style="color: darkblue;"></i>&nbsp;TecnixUganda&nbsp;
-    </p>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#platform">Platform</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html" class="active">FAQ</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+  </ul>
 </nav>
 
-<!-- FAQ Hero -->
-<section class="faq-hero">
-  <h1>Frequently Asked Questions</h1>
-  <p class="lead" style="color: #d4f5e9;">Find answers to common questions about our services and company.</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-badge">Help &amp; Support</div>
+    <h1>Frequently Asked<br><em>Questions</em></h1>
+    <p>Everything you need to know about Tecnix, the TecnixOS platform, and our professional services. Can't find your answer? We're a message away.</p>
+  </div>
 </section>
 
-<!-- FAQ Section -->
+<!-- FAQ -->
 <section class="faq-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="accordion" id="faqAccordion">
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="faqOneHeading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="false" aria-controls="faqOne">
-                What services does Tecnix Business Consult offer?
-              </button>
-            </h2>
-            <div id="faqOne" class="accordion-collapse collapse" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                We offer business consultancy, ICT solutions, web design, digital marketing, software development, business mails, bulk SMS, and ICT support & maintenance.
-              </div>
-            </div>
+  <div class="faq-layout">
+
+    <!-- SIDE NAV -->
+    <div class="faq-nav reveal">
+      <h4>Jump to Section</h4>
+      <ul class="faq-nav-links">
+        <li><a href="#general">General</a></li>
+        <li><a href="#platform">The Platform</a></li>
+        <li><a href="#payment">Payment &amp; Billing</a></li>
+        <li><a href="#technical">Technical</a></li>
+        <li><a href="#services">Professional Services</a></li>
+      </ul>
+    </div>
+
+    <!-- ACCORDION CONTENT -->
+    <div class="reveal">
+
+      <!-- GENERAL -->
+      <div class="faq-group" id="general">
+        <div class="faq-group-title">General</div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What is Tecnix Business Consult?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
           </div>
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="faqTwoHeading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
-                How can I request a quote or consultation?
-              </button>
-            </h2>
-            <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                You can fill out the contact form on our <a href="contact.html" style="color: #3eb963; text-decoration: underline;">Contact Us</a> page or email us directly at tecnixug@gmail.com.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="faqThreeHeading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
-                Where is your office located?
-              </button>
-            </h2>
-            <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqThreeHeading" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                Our office is at Novia House, Sir Apollo Kaggwa Road, Kampala, Uganda.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="faqFourHeading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">
-                Do you provide ongoing support after project delivery?
-              </button>
-            </h2>
-            <div id="faqFour" class="accordion-collapse collapse" aria-labelledby="faqFourHeading" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                Yes, we offer ongoing ICT support and maintenance services to ensure your business runs smoothly.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item mb-3">
-            <h2 class="accordion-header" id="faqFiveHeading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFive" aria-expanded="false" aria-controls="faqFive">
-                How soon can I expect a response after contacting you?
-              </button>
-            </h2>
-            <div id="faqFive" class="accordion-collapse collapse" aria-labelledby="faqFiveHeading" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                We strive to respond to all inquiries within 24 hours during business days.
-              </div>
-            </div>
+          <div class="faq-a">
+            <p>Tecnix Business Consult is a Ugandan technology and business solutions company based in Kampala. We operate on two tracks: the <strong>TecnixOS Platform</strong> — a suite of SaaS products built specifically for Ugandan businesses — and a range of <strong>professional services</strong> covering business consultancy, ICT infrastructure, digital marketing, and ongoing support.</p>
           </div>
         </div>
-        <div class="text-center mt-5">
-          <p style="color: #fff;">Still have questions? <a href="contact.html" style="color: #3eb963; text-decoration: underline;">Contact us</a> and we’ll be happy to help!</p>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Where is your office located?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Our office is at <strong>Novia House, Sir Apollo Kaggwa Road, Kampala, Uganda.</strong> You can reach us by phone on <a href="tel:+256773109280">+256 773 109 280</a> or by email at <a href="mailto:tecnixug@gmail.com">tecnixug@gmail.com</a>.</p>
+          </div>
         </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>How quickly do you respond to enquiries?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>We respond to all enquiries within <strong>24 hours on business days</strong> (Monday to Friday, 8:00 AM – 6:00 PM). For urgent matters, call or WhatsApp us directly on +256 773 109 280.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Do you work with businesses outside Kampala?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Yes. The TecnixOS platform is fully cloud-based (with offline capability) and works anywhere in Uganda with any device. For professional services such as onsite training, ICT setup, or implementation, we cover Kampala and surrounding areas directly, and can arrange upcountry visits by prior arrangement.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLATFORM -->
+      <div class="faq-group" id="platform">
+        <div class="faq-group-title">The TecnixOS Platform</div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What products are included in TecnixOS?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>TecnixOS currently includes four integrated products: <strong>Tecnix Ledger</strong> (finance, invoicing &amp; URA compliance), <strong>Tecnix Roster</strong> (HR &amp; payroll), <strong>Tecnix Stock</strong> (inventory management), and <strong>Tecnix POS</strong> (point of sale). Each product can be used standalone or as part of the full suite, all sharing one login and one database.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What is included in the 30-day free trial?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>The 30-day free trial gives you <strong>full access to your chosen plan</strong> at no cost — no credit card, no dollar invoice, no automatic charge at the end. You can explore all features, import your data, and involve your team before committing. If you decide not to continue, your data is exported to you in full.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Does the software work without an internet connection?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p><strong>Yes — TecnixOS is built offline-first.</strong> Your team can continue working normally during internet outages. All actions are saved locally and synchronised automatically to the cloud the moment a connection is restored. This is a core design decision, not an afterthought — because we know Uganda's connectivity reality.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>How long does setup and data migration take?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>For most businesses, setup is complete within <strong>5 business days</strong>. This includes data migration from your existing system (QuickBooks, spreadsheets, or manual records), user account creation, and basic onboarding. Growth and Command plan subscribers also receive onsite training as part of their package.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Is my data stored in Uganda?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p><strong>Yes.</strong> All TecnixOS data is stored on Tier III data centre infrastructure located within Uganda. We are fully compliant with Uganda's Data Protection and Privacy Act 2019 (PDPA). Your business data is never routed through foreign servers. Command plan subscribers can additionally request a private data environment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="faq-group" id="payment">
+        <div class="faq-group-title">Payment &amp; Billing</div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Can we pay via MTN MoMo or Airtel Money?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p><strong>Yes — both MTN MoMo and Airtel Money are accepted.</strong> Bank transfer is also available. All invoices are issued in UGX. We do not issue dollar invoices and there are no foreign exchange surprises.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Can I cancel my subscription at any time?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Yes. There are no long-term contracts on monthly plans. You can cancel at any time and your data will be exported and handed to you in full. We believe you should stay because the product works for you — not because you are locked in.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What is the 90-Day "Works For Uganda" Guarantee?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>If you use TecnixOS for 90 days and it does not save your team at least <strong>5 hours per week</strong> in administrative work, or if it does not handle your UGX operations, mobile money, and URA compliance better than your previous setup — <strong>we refund every shilling.</strong> No questions asked, no legal notices required.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECHNICAL -->
+      <div class="faq-group" id="technical">
+        <div class="faq-group-title">Technical</div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>We currently use QuickBooks. Can we migrate our data?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Yes — and the migration is <strong>free of charge.</strong> Our team handles the full data migration from QuickBooks, Sage, Odoo, or spreadsheets. The process typically takes 5 business days and you retain all your historical records.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What devices does TecnixOS run on?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>TecnixOS runs on any modern web browser — on desktop computers, laptops, tablets, and smartphones. Tecnix POS supports both touch-screen tablets and keyboard-driven desktop setups. No software installation is required.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Do you provide ongoing support after setup?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Yes. All plans include WhatsApp support during business hours. Growth and Command plans include priority phone support. Command plan subscribers additionally benefit from a <strong>dedicated account manager</strong> and a service level agreement (SLA) guaranteeing 4-hour response times and 99.5% uptime.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="faq-group" id="services">
+        <div class="faq-group-title">Professional Services</div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>What professional services does Tecnix offer beyond software?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Alongside the TecnixOS platform, we offer <strong>business consultancy</strong> (URA tax returns, TIN registration, KCCA licensing, company registration), <strong>ICT services</strong> (web design, networking, CCTV, domain registration), <strong>digital marketing</strong> (SEO, Google Ads, social media management), <strong>business emails &amp; bulk SMS</strong>, and <strong>ICT support &amp; maintenance</strong>. See the full list on our <a href="services.html">Services page</a>.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>How do I request a quote for a professional service?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Fill in the <a href="contact.html">contact form</a>, send us an email at <a href="mailto:tecnixug@gmail.com">tecnixug@gmail.com</a>, or call us directly on <a href="tel:+256773109280">+256 773 109 280</a>. We will respond with a tailored quote within 24 hours on business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <h4>Can you help with KCCA trading licences and URA registration?</h4>
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Yes. Our business consultancy team handles the full spectrum of Ugandan regulatory compliance — including <strong>URA tax returns, TIN registration, KCCA trading licence processing, URSB company registration, motor vehicle transfers, board resolutions,</strong> and general tax advisory. Get in touch and we will guide you through exactly what is needed.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STILL HAVE QUESTIONS -->
+      <div class="faq-contact">
+        <div>
+          <h3>Still Have a <em>Question?</em></h3>
+          <p>Our team is available Monday to Friday, 8:00 AM – 6:00 PM. We respond to every enquiry personally.</p>
+        </div>
+        <a href="contact.html" class="btn-primary">Contact Us →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-text">Tecnix<span>.</span></div>
+        <p class="footer-tagline">Uganda's integrated business software platform. Built offline-first, priced in UGX, and backed by a Kampala team that answers the phone.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:tecnixug@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="index.html#platform">Tecnix Ledger</a></li>
+          <li><a href="index.html#platform">Tecnix Roster</a></li>
+          <li><a href="index.html#platform">Tecnix Stock</a></li>
+          <li><a href="index.html#platform">Tecnix POS</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:tecnixug@gmail.com">tecnixug@gmail.com</a></li>
+          <li><a href="tel:+256773109280">+256 773 109 280</a></li>
+          <li><a href="#">Novia House, Sir Apollo Kaggwa Rd, Kampala</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Tecnix Business Consult Ltd. All rights reserved.</p>
+      <div class="compliance">
+        <span>PDPA 2019 Compliant</span>
+        <span>URSB Registered</span>
+        <span>Data Hosted in Uganda</span>
       </div>
     </div>
   </div>
-</section>
-
-<section class="text-left" style="background-color: #151f1b; color: #3eb963; padding: 20px;">
-  <div class="container row g-6">
-    <div class="container col-md-4">
-      <h4 style="font-weight: bold; color: whitesmoke;">Business Consultancy Services...</h4>
-      <ul>
-        <li>Tax Returns filing</li>
-        <li>TIN Registration</li>
-        <li>KCCA Trading licensing</li>
-        <li>Digital Marketing and Social Media</li>
-        <li>Company Registrations</li>
-        <li>Business Branding</li>
-        <li>Motor Vehicle Transfers</li>
-        <li>Board Resolutions</li>
-        <li>General Tax Advisory</li>
-        <li>Company Data Updates</li>
-        <li>Company profiles and portfolio</li>
-        <li>Human Resource Services</li>
-      </ul>
-    </div>
-    <div class="container col-md-4">
-    <h4 style="font-weight: bold; color: whitesmoke;">ICT Services...</h4>
-      <ul>
-        <li>ICT innovation and incubation Hub</li>
-        <li>Software Development</li>
-        <li>.ug, .co.ug, .ac.ug Domain Registration</li>
-        <li>Custom Email Addresses</li>
-        <li>Web Design Services Kampala</li>
-        <li>WordPress Website Designers & Developers</li>
-        <li>PPC or pay-per-click Services</li>
-        <li>Search engine marketing (SEM) Services</li>
-        <li>Google Ads Marketing Campaigns</li>
-        <li>YouTube Ads Marketing Campaigns</li>
-        <li>Website Backups and Security Protection Services</li>
-        <li>Site Recovery, Virus Repair & Malware Damage Cleanup</li>
-        <li>Computer Hardware and software provisioning</li>
-        <li>Networking and CCTV installation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="text-center">
-  <div class="container">
-    <div class="mb-2">
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-linkedin"></i></a>
-      <a href="#" class="me-2" style="color:#3eb963;"><i class="fab fa-instagram"></i></a>
-    </div>
-    <p style="font-size: 0.95em;">&copy; 2025 Tecnix Business Consult. All rights reserved.</p>
-  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const groups = document.querySelectorAll('.faq-group');
+  const navLinks = document.querySelectorAll('.faq-nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    groups.forEach(g => { if (window.scrollY >= g.offsetTop - 120) current = g.id; });
+    navLinks.forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') === '#' + current) a.classList.add('active'); });
+  });
+</script>
+</body>
 </html>
